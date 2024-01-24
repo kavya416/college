@@ -1,0 +1,9 @@
+Datepicker issue in edit milestone and listing page
+Added the Memo in standarized reports section
+
+Merged the audit variables & facts into one section in APM
+Did the document for this in SDLC
+
+Getting the element name & subject name in Annexure report
+Added the approved/rejected status with ajax in annexure report and
+Did the document for this.

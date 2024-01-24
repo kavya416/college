@@ -1,0 +1,12 @@
+[26-Feb-2023 16:44:45 Asia/Kolkata] PHP Deprecated:  Required parameter $dashboardWidget follows optional parameter $usertypeID in /home4/collenv4p/akshaya.collegehour.in/mvc/views/dashboard/index.php on line 47
+[26-Feb-2023 17:27:32 Asia/Kolkata] PHP Deprecated:  Required parameter $dashboardWidget follows optional parameter $usertypeID in /home4/collenv4p/akshaya.collegehour.in/mvc/views/dashboard/index.php on line 47
+[23-Sep-2023 14:44:49 Asia/Kolkata] PHP Warning:  require_once(/home4/schoodj8/college.ggsdarsi.org/mvc/helpers/site_helper.php): Failed to open stream: No such file or directory in /home4/schoodj8/college.ggsdarsi.org/index.php on line 61
+[23-Sep-2023 14:44:49 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/schoodj8/college.ggsdarsi.org/mvc/helpers/site_helper.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home4/schoodj8/college.ggsdarsi.org/index.php:61
+Stack trace:
+#0 {main}
+  thrown in /home4/schoodj8/college.ggsdarsi.org/index.php on line 61
+[25-Oct-2023 23:39:24 Asia/Kolkata] PHP Warning:  require_once(/home4/schoodj8/college.ggsdarsi.org/mvc/helpers/site_helper.php): Failed to open stream: No such file or directory in /home4/schoodj8/college.ggsdarsi.org/index.php on line 61
+[25-Oct-2023 23:39:24 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/schoodj8/college.ggsdarsi.org/mvc/helpers/site_helper.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home4/schoodj8/college.ggsdarsi.org/index.php:61
+Stack trace:
+#0 {main}
+  thrown in /home4/schoodj8/college.ggsdarsi.org/index.php on line 61

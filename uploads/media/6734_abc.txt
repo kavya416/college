@@ -1,0 +1,422 @@
+<link href=" <?php echo base_url()?>plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
+<?php $userid = $this->session->admin_session['user_id']; ?>
+<section class="content">
+        <div class="container-fluid">
+            
+               <div class="row clearfix">
+                
+
+
+
+<div class=" clearfix">
+               
+
+
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card ">
+                    <?php if($addchk =='1'){  ?>
+
+                    <div class="header">
+                    
+                        <a type="button" class="bg-green btn-sm waves-effect float-right t-5" data-toggle="collapse" data-target="#addplan" Title="Create Self Plan"  aria-expanded="true"> <i class="fa fa-plus"></i>  <?php// echo ucfirst($dispstatus) ;?> </a>
+
+                    </div>
+
+                    <?php } ?>
+
+
+                        <div class="body">
+
+                        <div id="addplan" class="<?php if(!empty($uri)) echo "collapse in";else echo "collapse" ?>">
+                        <?php if($addchk=='1'){?>
+                            <form class="form-horizontal" method="post" action="<?php echo site_url('Plansnperformance/getplandata') ?>" enctype="multipart/form-data">
+                                
+                        <div class="row m-l-5">      
+                                    <div class="col-lg-3 col-md-3 col-sm-9 col-xs-8">
+                                        <div class="form-group">
+                                        <label for="chit_name">From Date</label>
+
+                                            <div class="form-line">
+						<input type="date" name="fromdate" class="form-control dsatepicker" id="fromdate" value="<?php if($result_date){ echo date('d-m-Y',strtotime($result_date)); } else { echo date('Y-m-d');}?>">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                      
+                                  
+                                    <div class="col-lg-3 col-md-3 col-sm-9 col-xs-8">
+                                        <div class="form-group">
+                                        <label for="chit_name">Client</label>
+
+                                            <div class="form-line">
+                                                <?php if($_SESSION['propdata']['cname']!='') {?>
+                            						<input type="text" readonly value="<?=$_SESSION['propdata']['cname'];?>" class="form-control" >
+                            						<input type="hidden" name="planuserclient" id="planuserclient" value="<?=$_SESSION['propdata']['cid'];?>">
+                        						<?php } else { ?>
+                            						<select class="form-control select2" name="planuserclient" required id="planuserclient">
+                                                        <option value="">--Select Client--</option>
+                                                        <?php foreach($client_list as $record){?>
+                                                        <option value='<?php echo $record['client_id']?>' <?php if($urlcid==$record['client_id']) { echo 'selected';}?>><?php echo $record['fileno'].'/'.$record['client_name']?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                <?php } ?>    
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                  
+                                    <div class="col-lg-3 col-md-3 col-sm-9 col-xs-8">
+                                        <div class="form-group">
+                                        <label for="chit_name">Assignment</label>
+
+                                            <div class="form-line">
+                                                <?php if($_SESSION['propdata']['pid']!='') { ?>
+                            						<input type="text" readonly value="<?=$_SESSION['propdata']['prop_name'];?>" class="form-control" >
+                            						<input type="hidden" name="planuserwork" id="planuserwork" value="<?=$_SESSION['propdata']['pid'];?>">
+                        						<?php } else { ?>
+                            						<select class="form-control select2" name="planuserwork" required id="planuserwork">
+                                                        <option value="">--Select Assignment--</option>
+                                                    </select>
+                                                    <label id="wkid"></label>
+                                                    <label id="twkid" style=" float:right;"></label> 
+                                                <?php } ?>    
+                                            </div>
+                                        </div>
+                                        </div>
+                                    
+                              
+                                
+                                   
+                                    <div class="col-lg-3 col-md-3 col-sm-9 col-xs-8">
+                                        <div class="form-group">
+                                        <label for="chit_name"> Milestones </label>
+
+                                            <div class="form-line">
+                        						<select class="form-control select2" name="perftask" required id="perftask">
+                                                    <option value="">--Select Task--</option>
+                                                    <?php foreach($task_list as $ts){?>
+                                                    <option value="<?=$ts['id']?>"><?=$ts['activity_name']?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                               
+                               <div class="clearfix"></div>
+                                   
+
+                                    <div class="col-lg-3 col-md-3 col-sm-9 col-xs-8">
+                                        <div class="form-group">
+                                        <label for="chit_name">Estimated Hrs</label>
+
+                                            <div class="form-line">
+                        						<input class="form-control" type="number"  name="esthrs" id="esthrs">
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+                                  
+
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-8">
+                                        <div class="form-group">
+                                        <label for="chit_name">Description</label>
+
+                                            <div class="form-line">
+                        						<textarea class="form-control" name="plandescription"  id="plandescription"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 text-right col-sm-4 col-xs-5">
+							            <!--<button  type="submit" class="btn btn-primary   waves-effect"><?php //if(!empty($uri)){?> UPDATE<?php //} else echo 'Save';?></button> -->
+                                        <div class="form-group">
+                                        <button type="submit" id="get" value="get"  class="btn btn-warning">Get</button>
+                                        <button type="button" id="save" value="save" class="btn btn-success waves-effect">Save</button> 
+                                        </div>               
+                                    </div>
+                               
+                        </div>   
+                          </form>
+                          <?php } ?>
+                          </div>
+
+                            <div class="table-responsive refresh-after-ajax">
+                                <table class="table table-bordered table-striped table-hover dataTable ">
+                                    <thead>
+                                        <tr>
+                                    		<th width="25%">Plan ID-Doer-Planned on-Work Plan By-Ref By</th>
+											<th>Description-Client-Assignment-Task</th>
+											<th>Created At</th>
+											<th width="10%">Est Hrs-Performed Hrs</th>
+                                        </tr>
+                                    </thead>
+                                   
+                                    <tbody>
+                                            	<?php //echo "<pre>";print_r($plan_list);exit;
+									
+							    $sumworkplanid=0;$totest=0; foreach($plan_list as $row)
+							    { ?>
+							<tr>
+							    <td><a href="<?php echo site_url('Plansnperformance/plan_report/'.$row['planid'])?>"><?php echo 'P'.$row['planid'].'-';?></a>
+							    <?php $sql2 = "select name from app_user where id=".$row['userid'];
+							    $userres2 = $this-> db->query($sql2);
+							    $userrow2=$userres2->result_array();
+							    echo '<b>'.$userrow2[0]['name'].'</b>-';
+							    ?>
+							      <?php $dt = date_create($row['ondate']);echo date_format($dt,'d-M-Y').'-';
+							      
+							      if($row['plannedby']==-9)
+							       echo 'SELF';
+							      else {
+                                      
+							        $usersql = "select name from app_user where id=".$row['plannedby'];
+							        $userres = $this-> db->query($usersql);
+							        $userrow=$userres->result_array();
+							        echo $userrow[0]['name'].'-';
+							        }
+							       ?>
+							      <?php if(substr( $row['refid'], 0, 1 ) === "W")
+							      	echo 'Work Ref.</td>';
+							      else if(substr( $row['refid'], 0, 1 ) === "C")
+							      	echo 'CallLog Ref.</td>';
+							      else
+							      	echo 'Plan Ref.</td>';?>
+
+							      <td><?=$row['description'].'//'.$row['client_name'].'//'?>
+							      <?php   
+							      $assid = substr($row['refid'],1);
+							      if($assid=='')
+							       $assid=$row['workid'];
+							      $s = "SELECT worktaskname FROM sms_works where work_id=".$assid; 
+							      $res = $this-> db->query($s);//echo $s;
+							      $wkrow=$res->result_array();echo $wkrow[0]['worktaskname'].'-';
+							      
+							      if($row['tasklistid']) {
+    							      $t = "SELECT activity_name,task_status FROM  assignment_scheduler where id=".$row['tasklistid']; 
+    							      $tres = $this-> db->query($t);
+    							      $tskrow=$tres->result_array();
+							      ?><a href="<?php echo site_url('Plansnperformance/giveTaskUpdates/'.$assid.'/'.$row['tasklistid'].'/'.$tskrow[0]['task_status'])?>" title="Give Updates/Plans"><?=$tskrow[0]['activity_name']?></a>
+							      <?php } ?>
+                            </td>
+
+                                <td><?php echo date('d/m/Y',strtotime($row['entereddt']))?> </td>
+							      
+							      <td><?php 
+							        
+							        $pid = $row['planid'];
+                                    $sql = "select time_spent_in_hrs,perfid from userwork_performance where ref_planid = ".$pid;
+                                    $query = $this-> db->query($sql);
+                                    $perhrs = $query->result_array(); 
+							        echo $row['estimatedhrs'].' -- '.$perhrs[0]['time_spent_in_hrs'];?></td>
+							    <?php //if($perhrs[0]['time_spent_in_hrs']!=''){?>  
+							        						<?php 
+							echo  '</tr>';
+							//echo '<td>'.$row['planid'].'</td></tr>';
+							$sumworkplanid++;  }
+
+?>
+									</tbody>
+									</table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>                          
+                          
+              
+            
+        </div>
+</section>
+<script type="text/javascript"> 
+    $(document).ready(function(){ 
+
+/*$("#save").dblclick(function(e) {
+    e.preventDefault();
+});*/
+
+jQuery(document).on("submit", "form", function() {
+    $("#save").attr("disabled", true);
+});
+       
+// <!------------- SAVE PLAN ---------------->
+  $("#save").on('click',function(){
+        
+        var desc =  $("#plandescription").val();
+        var plandt=$("#fromdate").val();
+        var esthrs=$("#esthrs").val();
+        var perftask=$("#perftask").val();
+        var work = $("#planuserwork").val();
+        var client = $("#planuserclient").val();
+        
+        if(plandt!='' && desc!='' && client!='' && perftask!='')
+        {
+        
+            data = "saveplansheetself=1&desc="+desc+"&plandt="+plandt+"&esthrs="+esthrs+"&perftask="+perftask+"&work="+work+"&client="+client;
+            $("#loading").show();
+                    $.ajax({
+                        type:"POST",
+                        url:"<?php echo site_url('Plansnperformance/saveplansheetself')?>",
+                        dataType: "json",
+                        data:data,
+                        success: function(response){
+                          // alert(response);
+                          //$("#loading").hide();
+                          alert("Plan Saved Successfully");location.reload();
+                          $('#planbodydiv').html(response);
+                    }
+                  });
+        } else {
+             alert("select Date,Client,Assignment,Task,Hrs,Description (OR) Enter values correctly ");
+        }
+    });
+//<!------------------- SAVE PLAN ------------------------>
+
+//<!----------------Saving Performance Data starts ------->
+	
+ 	$(document).on("click",".saveperformancedata",function(){
+ 	   // alert("hi");
+ 		var clickedval=$(this).val();
+ 		var client=$("#perfclient"+clickedval).val();
+ 		var location=$("#perflocation"+clickedval).val();
+ 		var description=encodeURIComponent($("#perfdescription"+clickedval).val());
+ 		var spenthrs=$("#perftimespent"+clickedval).val();
+ 		var taskid=$("#perftask"+clickedval).val();
+ 		var planid=$("#perfplanid"+clickedval).val();
+ 		var planperfdt=$("#perfdate"+clickedval).val();
+ 		var perfupdateid=$("#perfupdateid"+clickedval).val();
+ 		//alert(planperfdt);exit;
+ 		
+ 		if(taskid=="")
+ 			taskid=-1;
+ 		if(planperfdt!="")
+ 		{
+     		var data="saveperformance=1&clientid="+client+"&location="+location+"&description="+description+"&spenthrs="+spenthrs+"&taskid="+taskid+"&planid="+planid+"&planperfdt="+planperfdt+"&perfupdateid="+perfupdateid;
+     		$("#loading").show();
+     		$.ajax({
+    			url:"<?php echo site_url('Plansnperformance/saveperformance')?>",
+    			type:"POST",
+    			data:data,
+    			cache: false,
+    			success: function(response){
+    			    
+    			     $("#loading").hide();
+    				//alert(response);
+    				if(response==1) {
+    					alert("Performance saved Successfully");
+    					window.location.reload();
+                    } else {
+    				    alert("Problem in saving");
+                        $("#modal"+clickedval).modal('hide');
+                    }
+                    
+    			}
+    		});
+ 		} else { alert("select Performance date/ Location properly "); }
+ 	});
+ 	
+//<!----------- Saving Performance Data ends ---------------------------->
+
+//<!--- Extend Plan-->			
+$(document).on('click','.extendplanbtn',function(){
+   // alert();
+ 		var clickedval=$(this).val();
+ 		var extendeddate=$("#extendeddate"+clickedval).val();
+ 		var planid=clickedval;
+		//var clickedval=$(this).val();
+ 	
+ 			var data="extended=1&extendeddate="+extendeddate+"&planid="+clickedval;
+ 		$("#loading").show();
+ 		$.ajax({
+			url:"<?php echo site_url('Plansnperformance/extended')?>",
+			type:"POST",
+			data:data,
+			cache: false,
+			success: function(response){
+			    
+    				$("#loading").hide();
+    				if(response==1)
+    					alert("Plan extended Successfully");
+    				else
+    					alert("Problem in extended");
+    
+    				$("#myModal"+planid).modal('toggle');
+    				window.location.reload();
+    
+    				//$('#get').trigger('click');
+			   }
+		});
+
+ 	});
+    //<!--- Extend Plan-->  
+      $(document).on("change","#planuserclient",function(){
+    
+       if($("#planuserclient").val()=="")
+       {
+            alert("Select Client  properly");
+            
+       } else {
+                      
+          data="getrefworkid="+$("#planuserclient").val()+"&planuser="+$("#planuser").val();
+          $("#loading").show();
+          $.ajax({
+
+                type: 'post',
+                url: '<?php echo site_url('Plansnperformance/getrefworkid')?>',
+                data: data,
+                success: function (resp) {
+                       // alert(resp);
+                       // $("#loading").hide();
+                        $("#planuserwork").html(resp);
+                }
+          });
+       }
+    });
+    
+    $("#planuserwork").change(function(){
+        
+        data="planuserwork="+$("#planuserwork").val()+"&planuserclient="+$("#planuserclient").val();
+        $.ajax({
+            
+            type: 'post',
+            url: '<?php echo site_url('Plansnperformance/getreftasklist_2')?>',//this function used specifically for this page only.
+            data: data,
+            success: function (resp) {
+                //alert(resp);
+                $("#loading").hide();
+                $("#perftask").html(resp);
+            }
+            
+        });
+        
+    });
+    
+    
+    $("#perftask").change(function(){
+        
+        var dt  = $("#fromdate").val();
+        var uid = '<?=$userid?>';
+        //alert(dt+'/'+uid);
+        
+        data="uid="+uid+"&dt="+dt;
+        $.ajax({
+            
+            type: 'post',
+            url: '<?php echo site_url('Plansnperformance/check_useravailable')?>',
+            data: data,
+            success: function (response) {
+                //alert(response);
+                if(response=='1') {
+                    alert("Sorry,This user day is approved,you cannot create plan for selected date");
+                    $("#save").hide();
+                } else {
+                    $("#save").show();
+                }
+            }
+        });        
+        
+    });
+  
+       
+    });  
+</script>    
+     
